@@ -1,0 +1,576 @@
+/* ======================================================
+   HCCS — 고교학점제 설문 디자인 시스템
+   Dark Glassmorphism Theme (Teal & Emerald)
+   ====================================================== */
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary: #0a0f1a;
+  --bg-secondary: #111827;
+  --bg-card: rgba(17, 24, 39, 0.7);
+  --bg-card-hover: rgba(17, 24, 39, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --accent: #10b981;
+  --accent-light: #34d399;
+  --accent-glow: rgba(16, 185, 129, 0.3);
+  --accent2: #06b6d4;
+  --accent2-light: #22d3ee;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #10b981;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(6, 182, 212, 0.08), transparent);
+}
+
+/* ─── Typography ─── */
+h1, h2, h3, h4 { font-weight: 700; line-height: 1.3; }
+h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+h2 { font-size: clamp(1.3rem, 3vw, 1.7rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); }
+
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─── Layout ─── */
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.survey-header {
+  text-align: center;
+  padding: 2rem 0 1rem;
+}
+
+.survey-header__badge {
+  display: inline-block;
+  padding: 0.35rem 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.survey-header__title {
+  background: linear-gradient(135deg, #e5e7eb, var(--accent-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.4rem;
+}
+
+.survey-header__subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ─── Progress Bar ─── */
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 1.5rem 0;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.progress-step__circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--glass-border);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 1;
+}
+
+.progress-step.active .progress-step__circle,
+.progress-step.completed .progress-step__circle {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.progress-step__label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+  white-space: nowrap;
+}
+
+.progress-step.active .progress-step__label,
+.progress-step.completed .progress-step__label {
+  color: var(--accent-light);
+}
+
+.progress-line {
+  width: 40px;
+  height: 2px;
+  background: var(--glass-border);
+  flex-shrink: 0;
+  margin-bottom: 1.2rem;
+}
+
+.progress-line.completed {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+/* ─── Glass Card ─── */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.glass-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ─── Section Titles ─── */
+.part-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.part-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.q-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.q-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+.q-badge--green { background: rgba(16,185,129,0.15); color: var(--accent-light); }
+.q-badge--cyan { background: rgba(6,182,212,0.15); color: var(--accent2-light); }
+.q-badge--amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.q-badge--pink { background: rgba(236,72,153,0.15); color: #f472b6; }
+
+.q-desc {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+}
+
+/* ─── Form Elements ─── */
+/* Likert Scale */
+.likert-group { display: flex; flex-direction: column; gap: 1rem; }
+
+.likert-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.likert-item__label {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.likert-scale {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+}
+
+.likert-scale__hint {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  padding: 0 0.25rem;
+  margin-top: -0.2rem;
+}
+
+.likert-radio {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+.likert-radio input { display: none; }
+
+.likert-radio span {
+  display: block;
+  padding: 0.5rem 0;
+  border-radius: var(--radius-xs);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.likert-radio:hover span {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.likert-radio input:checked + span {
+  background: linear-gradient(135deg, rgba(16,185,129,0.25), rgba(6,182,212,0.2));
+  border-color: var(--accent);
+  color: var(--accent-light);
+  font-weight: 700;
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* Radio Options (single select) */
+.radio-options { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.radio-option:hover {
+  background: rgba(16,185,129,0.06);
+  border-color: rgba(16,185,129,0.2);
+}
+
+.radio-option input { display: none; }
+
+.radio-option__icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted);
+  position: relative;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.radio-option input:checked ~ .radio-option__icon {
+  border-color: var(--accent);
+}
+.radio-option input:checked ~ .radio-option__icon::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radio-option input:checked ~ .radio-option__text {
+  color: var(--accent-light);
+  font-weight: 600;
+}
+
+.radio-option__text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+/* Checkbox Options (multi select) */
+.checkbox-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.88rem;
+}
+
+.checkbox-option:hover {
+  background: rgba(16,185,129,0.06);
+  border-color: rgba(16,185,129,0.2);
+}
+
+.checkbox-option input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.checkbox-option.checked {
+  background: rgba(16,185,129,0.1);
+  border-color: var(--accent);
+}
+
+/* Select Dropdown */
+select.form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  appearance: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+select.form-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+select.form-select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Textarea */
+textarea.form-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  resize: vertical;
+  transition: var(--transition);
+}
+
+textarea.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+textarea.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+  border: 1px solid var(--glass-border);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-primary);
+}
+
+.btn-lg {
+  padding: 1rem 2.5rem;
+  font-size: 1.05rem;
+  border-radius: var(--radius);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* ─── Survey Parts (show/hide) ─── */
+.survey-part { display: none; }
+.survey-part.active { display: block; animation: fadeIn 0.4s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Done Screen ─── */
+.done-screen {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.done-screen__icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.done-screen__title {
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--accent-light), var(--accent2-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.done-screen__desc {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.submit-status {
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.submit-status--success {
+  background: rgba(16,185,129,0.15);
+  border: 1px solid rgba(16,185,129,0.3);
+  color: var(--accent-light);
+}
+
+.submit-status--error {
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #fca5a5;
+}
+
+.submit-status--loading {
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  color: #fcd34d;
+}
+
+/* ─── Toast ─── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+  background: rgba(16,185,129,0.9);
+  color: #fff;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.error { background: rgba(239,68,68,0.9); }
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  .glass-card { padding: 1.1rem; }
+  .btn-row { flex-direction: column; }
+  .btn-row .btn { width: 100%; }
+  .likert-scale { gap: 0.2rem; }
+  .likert-radio span { padding: 0.4rem 0; font-size: 0.8rem; }
+  .progress-line { width: 24px; }
+  .checkbox-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 400px) {
+  .checkbox-grid { grid-template-columns: 1fr; }
+}
